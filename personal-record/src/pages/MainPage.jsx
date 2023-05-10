@@ -6,9 +6,16 @@ const MainPage = () => {
   return (
     <>
       <Header />
-      <Suspense fallback={<>loading..</>}>
-        <Records />
-      </Suspense>
+      <main id="page_content">
+        <div className="content_title">
+          <h1> Great PeoPle </h1>
+        </div>
+        <div id="cards_container">
+          <Suspense fallback={<></>}>
+            <Records />
+          </Suspense>
+        </div>
+      </main>
     </>
   );
 };
