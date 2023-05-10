@@ -2,7 +2,7 @@ import { useState } from "react";
 import classNames from "classnames";
 
 const Card = ({ info }) => {
-  const { id, email, name, username, idx } = info;
+  const { id, title, body, idx } = info;
   const [isFlipped, setIsFlipped] = useState(false);
 
   const cardClass = classNames({
@@ -17,8 +17,8 @@ const Card = ({ info }) => {
       key={id}
       onClick={() => setIsFlipped(!isFlipped)}
     >
-      <div className="card_plane card_plane--front">{name}</div>
-      <div className="card_plane card_plane--back">{username}</div>
+      <div className="card_plane card_plane--front">{title}</div>
+      <div className="card_plane card_plane--back">{body}</div>
     </div>
   );
 };

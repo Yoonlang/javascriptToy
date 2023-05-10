@@ -11,7 +11,7 @@ const MainPage = () => {
           <h1> Great PeoPle </h1>
         </div>
         <div id="cards_container">
-          <Suspense fallback={<></>}>
+          <Suspense fallback={<>loading...</>}>
             <Records />
           </Suspense>
         </div>

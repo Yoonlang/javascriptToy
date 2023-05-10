@@ -1,14 +1,21 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { useRecoilValue } from "recoil";
-import { userList } from "store";
+import { currentPostList } from "store";
 import Card from "./Card";
 
 const Records = () => {
-  const userlist = useRecoilValue(userList);
+  const postList = useRecoilValue(currentPostList);
+
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     console.log(window.scrollY);
+  //     console.log(document.body.scrollHeight - window.innerHeight);
+  //   }, 16);
+  // }, []);
 
   return (
     <>
-      {userlist?.map((info, idx) => {
+      {postList?.map((info, idx) => {
         return <Card key={info.id} info={{ ...info, idx }} />;
       })}
     </>
