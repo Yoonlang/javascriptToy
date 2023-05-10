@@ -1,5 +1,12 @@
+import Header from "../components/Header";
+
 const SignUpPage = () => {
-  return <>hello</>;
+  return (
+    <>
+      <Header />
+      hello
+    </>
+  );
 };
 
 export default SignUpPage;
