@@ -25,6 +25,11 @@ header {
   padding: 0px 20px;
 }
 
+.header a {
+  text-decoration: none;
+  color: #fff;
+}
+
 .header_left,
 .header_right {
   cursor: pointer;
@@ -78,7 +83,7 @@ header {
   border-radius: 25px;
   text-align: center;
   font-weight: 700;
-  font-size: 30px;
+  font-size: 25px;
   color: #fff;
   backface-visibility: hidden;
 }
