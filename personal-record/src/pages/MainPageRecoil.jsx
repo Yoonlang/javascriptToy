@@ -1,7 +1,7 @@
 import Header from "components/Header";
-import Records from "../components/Records";
+import RecordsRecoil from "components/RecordsRecoil";
 
-const MainPage = () => {
+const MainPageRecoil = () => {
   return (
     <>
       <Header />
@@ -10,11 +10,11 @@ const MainPage = () => {
           <h1> Great PeoPle </h1>
         </div>
         <div id="cards_container">
-          <Records />
+          <RecordsRecoil />
         </div>
       </main>
     </>
   );
 };
 
-export default MainPage;
+export default MainPageRecoil;
