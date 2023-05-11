@@ -1,9 +1,8 @@
 import { throttle } from "functions/throttle";
 import { Suspense, useEffect } from "react";
-import { useRecoilState } from "recoil";
-import { totalPostList, pageId } from "store";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { totalPostList, pageId, currentPostList } from "store";
 import Card from "components/Card";
-import NewRecords from "components/NewRecords";
 
 const RecordsRecoil = () => {
   const [pageIdx, setPageIdx] = useRecoilState(pageId);
@@ -41,6 +40,16 @@ const RecordsRecoil = () => {
       </Suspense>
     </>
   );
+};
+
+const NewRecords = ({ getNewRecords }) => {
+  const newPostList = useRecoilValue(currentPostList);
+
+  useEffect(() => {
+    getNewRecords(newPostList);
+  }, [newPostList]);
+
+  return <></>;
 };
 
 export default RecordsRecoil;
