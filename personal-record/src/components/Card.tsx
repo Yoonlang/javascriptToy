@@ -1,9 +1,14 @@
 import { useState } from "react";
 import classNames from "classnames";
+import { Post } from "./Records";
 
-const Card = ({ info }) => {
-  const { id, title, body, idx } = info;
-  const [isFlipped, setIsFlipped] = useState(false);
+interface CardProps {
+  info: Post;
+}
+
+const Card: React.FC<CardProps> = ({ info }) => {
+  const { id, title, body } = info;
+  const [isFlipped, setIsFlipped] = useState<boolean>(false);
 
   const cardClass = classNames({
     card: true,
@@ -12,7 +17,6 @@ const Card = ({ info }) => {
 
   return (
     <div
-      idx={idx}
       className={cardClass}
       key={id}
       onClick={() => setIsFlipped(!isFlipped)}

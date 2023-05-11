@@ -4,12 +4,18 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { totalPostList, pageId, currentPostList } from "store";
 import Card from "components/Card";
 
+export interface Post {
+  id: number;
+  title: string;
+  body: string;
+}
+
 const limitScrollableHeight = 30;
 
-const Records = () => {
-  const [isDone, setIsDone] = useState(false);
-  const [pageIdx, setPageIdx] = useRecoilState(pageId);
-  const [postList, setPostList] = useRecoilState(totalPostList);
+const Records: React.FC = () => {
+  const [isDone, setIsDone] = useState<boolean>(false);
+  const [pageIdx, setPageIdx] = useRecoilState<number>(pageId);
+  const [postList, setPostList] = useRecoilState<Post[]>(totalPostList);
 
   const throttledScrollHandler = throttle(() => {
     const leftScrollableHeight = Math.abs(
@@ -20,7 +26,7 @@ const Records = () => {
     }
   });
 
-  const getNewRecords = (newRecordList) => {
+  const getNewRecords = (newRecordList: Post[]) => {
     setPostList([...postList, ...newRecordList]);
   };
 
@@ -34,8 +40,8 @@ const Records = () => {
 
   return (
     <>
-      {postList?.map((info, idx) => {
-        return <Card key={info.id} info={{ ...info, idx }} />;
+      {postList?.map((info) => {
+        return <Card key={info.id} info={info} />;
       })}
       <Suspense fallback={<p>loading New Records...</p>}>
         <NewRecords getNewRecords={getNewRecords} setIsDone={setIsDone} />
@@ -44,8 +50,16 @@ const Records = () => {
   );
 };
 
-const NewRecords = ({ getNewRecords, setIsDone }) => {
-  const newPostList = useRecoilValue(currentPostList);
+interface NewRecordsProps {
+  getNewRecords: (newRecordList: Post[]) => void;
+  setIsDone: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const NewRecords: React.FC<NewRecordsProps> = ({
+  getNewRecords,
+  setIsDone,
+}) => {
+  const newPostList = useRecoilValue<Post[]>(currentPostList);
 
   useEffect(() => {
     if (newPostList.length === 0) {
