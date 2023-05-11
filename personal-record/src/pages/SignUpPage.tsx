@@ -1,21 +1,24 @@
-import Header from "components/Header";
 import { useForm } from "react-hook-form";
 
-const SignUpPage = () => {
+const SignUpPage: React.FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: {
+    name: string;
+    email: string;
+    nickname: string;
+    role: string;
+  }) => {
     console.log(data);
     alert("등록");
   };
 
   return (
     <>
-      <Header />
       <main id="page_content">
         <div className="content_title">
           <h1> Sign Up, GreatPeoPle!</h1>
@@ -74,7 +77,9 @@ const SignUpPage = () => {
             </select>
           </span>
           <span className="form_elem">
-            <button type="submit">등록</button>
+            <button type="submit" disabled={Object.keys(errors).length > 0}>
+              등록
+            </button>
           </span>
         </form>
       </main>

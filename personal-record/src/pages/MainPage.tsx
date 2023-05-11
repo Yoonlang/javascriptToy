@@ -1,10 +1,8 @@
-import Header from "components/Header";
-import Records from "../components/Records";
+import Records from "components/Records";
 
-const MainPage = () => {
+const MainPage: React.FC = () => {
   return (
     <>
-      <Header />
       <main id="page_content">
         <div className="content_title">
           <h1> Great PeoPle </h1>

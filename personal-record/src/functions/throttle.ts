@@ -1,7 +1,7 @@
-export const throttle = (cb) => {
+export const throttle = (cb: () => void): (() => void) => {
   let isThrottled = false;
 
-  const throttledCb = () => {
+  const throttledCb = (): void => {
     if (!isThrottled) {
       isThrottled = true;
       cb();
