@@ -1,5 +1,5 @@
 import { throttle } from "functions/throttle";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { totalPostList, pageId, currentPostList } from "store";
 import Card from "components/Card";
@@ -17,14 +17,16 @@ const Records: React.FC = () => {
   const [pageIdx, setPageIdx] = useRecoilState<number>(pageId);
   const [postList, setPostList] = useRecoilState<Post[]>(totalPostList);
 
-  const throttledScrollHandler = throttle(() => {
-    const leftScrollableHeight = Math.abs(
-      window.scrollY + window.innerHeight - document.body.scrollHeight
-    );
-    if (leftScrollableHeight <= limitScrollableHeight) {
-      setPageIdx(pageIdx + 1);
-    }
-  });
+  const throttledScrollHandler = useCallback(() => {
+    throttle(() => {
+      const leftScrollableHeight = Math.abs(
+        window.scrollY + window.innerHeight - document.body.scrollHeight
+      );
+      if (leftScrollableHeight <= limitScrollableHeight) {
+        setPageIdx(pageIdx + 1);
+      }
+    });
+  }, [pageIdx, setPageIdx]);
 
   const getNewRecords = (newRecordList: Post[]) => {
     setPostList([...postList, ...newRecordList]);
@@ -36,7 +38,7 @@ const Records: React.FC = () => {
     return () => {
       window.removeEventListener("scroll", throttledScrollHandler);
     };
-  }, [pageIdx, isDone]);
+  }, [pageIdx, isDone, throttledScrollHandler]);
 
   return (
     <>

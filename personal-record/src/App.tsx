@@ -7,8 +7,8 @@ import Header from "components/Header";
 function App() {
   return (
     <RecoilRoot>
-      <Header />
       <BrowserRouter>
+        <Header />
         <Routes>
           <Route path="/web" element={<MainPage />} />
           <Route path="/web/signup" element={<SignUpPage />} />
