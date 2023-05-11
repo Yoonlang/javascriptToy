@@ -77,7 +77,9 @@ const SignUpPage: React.FC = () => {
             </select>
           </span>
           <span className="form_elem">
-            <button type="submit">등록</button>
+            <button type="submit" disabled={Object.keys(errors).length > 0}>
+              등록
+            </button>
           </span>
         </form>
       </main>

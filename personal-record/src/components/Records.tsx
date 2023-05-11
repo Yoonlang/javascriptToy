@@ -17,16 +17,14 @@ const Records: React.FC = () => {
   const [pageIdx, setPageIdx] = useRecoilState<number>(pageId);
   const [postList, setPostList] = useRecoilState<Post[]>(totalPostList);
 
-  const throttledScrollHandler = useCallback(() => {
-    throttle(() => {
-      const leftScrollableHeight = Math.abs(
-        window.scrollY + window.innerHeight - document.body.scrollHeight
-      );
-      if (leftScrollableHeight <= limitScrollableHeight) {
-        setPageIdx(pageIdx + 1);
-      }
-    });
-  }, [pageIdx, setPageIdx]);
+  const throttledScrollHandler = throttle(() => {
+    const leftScrollableHeight = Math.abs(
+      window.scrollY + window.innerHeight - document.body.scrollHeight
+    );
+    if (leftScrollableHeight <= limitScrollableHeight) {
+      setPageIdx(pageIdx + 1);
+    }
+  });
 
   const getNewRecords = (newRecordList: Post[]) => {
     setPostList([...postList, ...newRecordList]);
