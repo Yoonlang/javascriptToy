@@ -59,7 +59,7 @@ const NewRecords: React.FC<NewRecordsProps> = ({
   getNewRecords,
   setIsDone,
 }) => {
-  const newPostList = useRecoilValue<Post[]>(currentPostList);
+  const newPostList = useRecoilValue(currentPostList);
 
   useEffect(() => {
     if (newPostList.length === 0) {
