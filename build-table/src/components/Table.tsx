@@ -3,7 +3,18 @@ import employeeData from "datas/index.json";
 
 const tableHeader = ["name", "title", "email", "role"];
 
-const Table: React.FC = () => {
+interface TableProps {
+  pageIdx: number;
+}
+
+const viewingDataForPage = 5;
+
+const Table: React.FC<TableProps> = ({ pageIdx }) => {
+  const currentEmployeeData = employeeData.slice(
+    (pageIdx - 1) * viewingDataForPage,
+    pageIdx * viewingDataForPage
+  );
+
   return (
     <StyledTable>
       <thead>
@@ -14,7 +25,7 @@ const Table: React.FC = () => {
         </tr>
       </thead>
       <tbody>
-        {employeeData.map((data) => {
+        {currentEmployeeData.map((data) => {
           const { name, title, email, role } = data;
           return (
             <tr key={email}>
@@ -30,6 +41,15 @@ const Table: React.FC = () => {
   );
 };
 
-const StyledTable = styled.table``;
+const StyledTable = styled.table`
+  & td {
+    text-align: center;
+  }
+
+  & thead > tr,
+  tr:nth-child(even) {
+    background: lightgray;
+  }
+`;
 
 export default Table;

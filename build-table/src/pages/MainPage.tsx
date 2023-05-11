@@ -9,7 +9,7 @@ const MainPage: React.FC = () => {
         드롭다운을 이 영역에 구현해주세요
       </div>
       <div className="area" id="table">
-        <Table />
+        <Table pageIdx={1} />
       </div>
       <div className="area" id="pagination">
         <button className="arrow"></button>
