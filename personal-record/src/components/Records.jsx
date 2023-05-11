@@ -1,39 +1,26 @@
 import { throttle } from "functions/throttle";
-import { useMount } from "functions/useMount";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { totalPostList, pageId, currentPostList } from "store";
 import Card from "components/Card";
 
 const Records = () => {
-  const [pageIdx, setPageIdx] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-  const [postList, setPostList] = useState([]);
+  const [pageIdx, setPageIdx] = useRecoilState(pageId);
+  const [postList, setPostList] = useRecoilState(totalPostList);
 
   const throttledScrollHandler = throttle(() => {
     if (
-      !isLoading &&
       Math.abs(
         window.scrollY - document.body.scrollHeight + window.innerHeight
       ) <= 30
     ) {
-      setIsLoading(true);
-      getPostData(pageIdx + 1);
       setPageIdx(pageIdx + 1);
     }
   });
 
-  const getPostData = async (pid) => {
-    const res = await fetch(
-      `https://jsonplaceholder.typicode.com/posts?_page=${pid}`
-    );
-    const data = await res.json();
-    setPostList([...postList, ...data]);
-    setIsLoading(false);
+  const getNewRecords = (newRecordList) => {
+    setPostList([...postList, ...newRecordList]);
   };
-
-  useMount(() => {
-    setIsLoading(true);
-    getPostData(pageIdx);
-  }, []);
 
   useEffect(() => {
     window.addEventListener("scroll", throttledScrollHandler);
@@ -41,15 +28,28 @@ const Records = () => {
     return () => {
       window.removeEventListener("scroll", throttledScrollHandler);
     };
-  }, [pageIdx, postList]);
+  }, [pageIdx]);
 
   return (
     <>
       {postList?.map((info, idx) => {
         return <Card key={info.id} info={{ ...info, idx }} />;
       })}
+      <Suspense fallback={<p>loading New Records...</p>}>
+        <NewRecords getNewRecords={getNewRecords} />
+      </Suspense>
     </>
   );
+};
+
+const NewRecords = ({ getNewRecords }) => {
+  const newPostList = useRecoilValue(currentPostList);
+
+  useEffect(() => {
+    getNewRecords(newPostList);
+  }, [newPostList]);
+
+  return <></>;
 };
 
 export default Records;

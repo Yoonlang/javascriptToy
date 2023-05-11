@@ -1,5 +1,5 @@
 import Header from "components/Header";
-import Records from "../components/Records";
+import Records from "components/Records";
 
 const MainPage = () => {
   return (
