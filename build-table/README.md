@@ -15,4 +15,11 @@
 
 ### 리팩토링 요소
 + react helmet async, react snap 처리
++ manifest.json, robots.txt
 + CRA eslint, babel 처리 보기
+
+
+react helmet 도입 계획
+1. 메인페이지에서 클릭 시 user page로 넘어간다.
+2. 각 유저에 대한 메타 데이터를 helmet 통해서 넣어준다.
+3. react snap으로 적절히 추가 html을 넣어준다.
