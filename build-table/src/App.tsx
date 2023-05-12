@@ -1,21 +1,37 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { RecoilRoot } from "recoil";
+import {
+  Navigate,
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 import GlobalStyle from "./components/GlobalStyle";
 import ErrorPage from "./pages/ErrorPage";
 import MainPage from "./pages/MainPage";
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Navigate to={"/web"} />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/web",
+    element: <MainPage />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "hi",
+        element: <>hi~~!</>,
+      },
+    ],
+  },
+]);
+
 const App = () => {
   return (
-    <RecoilRoot>
+    <>
       <GlobalStyle />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Navigate to="/web" />} />
-          <Route path="/web/*" element={<MainPage />} />
-          <Route path="*" element={<ErrorPage />} />
-        </Routes>
-      </BrowserRouter>
-    </RecoilRoot>
+      <RouterProvider router={router} />
+    </>
   );
 };
 
