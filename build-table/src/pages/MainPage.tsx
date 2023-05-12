@@ -1,25 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import Table from "components/Table";
 import DropDown from "components/DropDown";
+import { viewingDataLayer } from "consts";
+import Pagination from "components/Pagination";
+import employeeDataList from "datas/index.json";
 
 const MainPage: React.FC = () => {
+  const [viewingDataForPage, setViewingDataForPage] = useState<number>(
+    viewingDataLayer.five
+  );
+  const [viewingPage, setViewingPage] = useState<number>(1);
+
   return (
     <>
       <header id="page_title">Grepp Enterprise</header>
       <div className="area" id="dropdown">
-        <DropDown />
+        <DropDown
+          setViewingDataForPage={setViewingDataForPage}
+          resetViewingPage={() => setViewingPage(1)}
+        />
       </div>
       <div className="area" id="table">
-        <Table pageIdx={1} />
+        <Table
+          pageIdx={viewingPage}
+          viewingDataForPage={viewingDataForPage}
+          employeeDataList={employeeDataList}
+        />
       </div>
       <div className="area" id="pagination">
-        <button className="arrow">&lt;&lt;</button>
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>4</button>
-        <button>5</button>
-        <button className="arrow">&gt;&gt;</button>
+        <Pagination
+          viewingPage={viewingPage}
+          setViewingPage={setViewingPage}
+          dataLength={employeeDataList.length}
+          viewingDataForPage={viewingDataForPage}
+        />
       </div>
     </>
   );

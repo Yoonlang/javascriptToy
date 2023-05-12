@@ -1,16 +1,26 @@
 import styled from "styled-components";
-import employeeData from "datas/index.json";
 
 const tableHeader = ["name", "title", "email", "role"];
 
-interface TableProps {
-  pageIdx: number;
+interface EmployeeData {
+  name: string;
+  title: string;
+  email: string;
+  role: string;
 }
 
-const viewingDataForPage = 5;
+interface TableProps {
+  pageIdx: number;
+  viewingDataForPage: number;
+  employeeDataList: EmployeeData[];
+}
 
-const Table: React.FC<TableProps> = ({ pageIdx }) => {
-  const currentEmployeeData = employeeData.slice(
+const Table: React.FC<TableProps> = ({
+  pageIdx,
+  viewingDataForPage,
+  employeeDataList,
+}) => {
+  const currentEmployeeDataList = employeeDataList.slice(
     (pageIdx - 1) * viewingDataForPage,
     pageIdx * viewingDataForPage
   );
@@ -25,7 +35,7 @@ const Table: React.FC<TableProps> = ({ pageIdx }) => {
         </tr>
       </thead>
       <tbody>
-        {currentEmployeeData.map((data) => {
+        {currentEmployeeDataList.map((data) => {
           const { name, title, email, role } = data;
           return (
             <tr key={email}>

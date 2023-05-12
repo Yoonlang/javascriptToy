@@ -16,13 +16,6 @@ const router = createBrowserRouter([
   {
     path: "/web",
     element: <MainPage />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        path: "hi",
-        element: <>hi~~!</>,
-      },
-    ],
   },
 ]);
 

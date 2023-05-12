@@ -1,14 +1,21 @@
-import { useRecoilState } from "recoil";
-import { viewingMoreData } from "store";
+import { viewingDataLayer } from "consts";
 
-const DropDown = () => {
-  const [isViewingMoreData, setIsViewingMoreData] =
-    useRecoilState(viewingMoreData);
+interface DropDownProps {
+  setViewingDataForPage: React.Dispatch<React.SetStateAction<number>>;
+  resetViewingPage: () => void;
+}
 
+const DropDown: React.FC<DropDownProps> = ({
+  setViewingDataForPage,
+  resetViewingPage,
+}) => {
   return (
     <select
       name="viewingDataNums"
-      onChange={() => setIsViewingMoreData(!isViewingMoreData)}
+      onChange={(e) => {
+        setViewingDataForPage(viewingDataLayer[e.target.value]);
+        resetViewingPage();
+      }}
     >
       <option value="five">5개씩</option>
       <option value="fifteen">15개씩</option>

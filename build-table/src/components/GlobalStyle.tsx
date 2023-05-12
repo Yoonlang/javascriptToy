@@ -52,7 +52,7 @@ th, td {
     cursor: pointer;
 }
 
-button.arrow {
+button.arrow, button.here {
     color:red;
 }
 `;
