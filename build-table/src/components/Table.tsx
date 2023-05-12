@@ -1,8 +1,10 @@
+import { useNavigate } from "react-router";
 import styled from "styled-components";
 
 const tableHeader = ["name", "title", "email", "role"];
 
 interface EmployeeData {
+  id: number;
   name: string;
   title: string;
   email: string;
@@ -24,6 +26,7 @@ const Table: React.FC<TableProps> = ({
     (pageIdx - 1) * viewingDataForPage,
     pageIdx * viewingDataForPage
   );
+  const navigate = useNavigate();
 
   return (
     <StyledTable>
@@ -36,9 +39,12 @@ const Table: React.FC<TableProps> = ({
       </thead>
       <tbody>
         {currentEmployeeDataList.map((data) => {
-          const { name, title, email, role } = data;
+          const { id, name, title, email, role } = data;
           return (
-            <tr key={email}>
+            <tr
+              onClick={() => navigate(`/web/user/${id}`, { state: data })}
+              key={id}
+            >
               <td>{name}</td>
               <td>{title}</td>
               <td>{email}</td>
@@ -54,6 +60,10 @@ const Table: React.FC<TableProps> = ({
 const StyledTable = styled.table`
   & td {
     text-align: center;
+  }
+
+  & tr {
+    cursor: pointer;
   }
 
   & thead > tr,
