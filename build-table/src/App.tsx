@@ -1,3 +1,4 @@
+import UserPage from "pages/UserPage";
 import {
   Navigate,
   createBrowserRouter,
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: "/web",
     element: <MainPage />,
+  },
+  {
+    path: "/web/user/:userId",
+    element: <UserPage />,
   },
 ]);
 

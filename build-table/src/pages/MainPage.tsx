@@ -4,6 +4,7 @@ import DropDown from "components/DropDown";
 import { viewingDataLayer } from "consts";
 import Pagination from "components/Pagination";
 import employeeDataList from "datas/index.json";
+import CustomHelmet from "components/CustomHelmet";
 
 const MainPage: React.FC = () => {
   const [viewingDataForPage, setViewingDataForPage] = useState<number>(
@@ -13,6 +14,7 @@ const MainPage: React.FC = () => {
 
   return (
     <>
+      <CustomHelmet page={"main"} />
       <header id="page_title">Grepp Enterprise</header>
       <div className="area" id="dropdown">
         <DropDown
