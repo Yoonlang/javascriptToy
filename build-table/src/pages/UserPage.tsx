@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import employeeDataList from "datas/index.json";
+import CustomHelmet from "components/CustomHelmet";
 
 const UserPage: React.FC = () => {
   const [userInfo, setUserInfo] = useState({
@@ -23,6 +24,7 @@ const UserPage: React.FC = () => {
 
   return (
     <>
+      <CustomHelmet page={"user"} data={userInfo} />
       <p>name : {name}</p>
       <p>title : {title}</p>
       <p>email : {email}</p>
