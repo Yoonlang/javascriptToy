@@ -14,19 +14,23 @@ const limitScrollableHeight = 30;
 const Records: React.FC = () => {
   const [isDone, setIsDone] = useState<boolean>(false);
   const [pageIdx, setPageIdx] = useRecoilState<number>(pageId);
+  const [loadedPageIdx, setLoadedPageIdx] = useState<number>(0);
   const [postList, setPostList] = useRecoilState<Post[]>(totalPostList);
 
   const scrollHandler = () => {
-    const leftScrollableHeight = Math.abs(
-      window.scrollY + window.innerHeight - document.body.scrollHeight
-    );
-    if (leftScrollableHeight <= limitScrollableHeight) {
-      setPageIdx(pageIdx + 1);
+    if (loadedPageIdx === pageIdx) {
+      const leftScrollableHeight = Math.abs(
+        window.scrollY + window.innerHeight - document.body.scrollHeight
+      );
+      if (leftScrollableHeight <= limitScrollableHeight) {
+        setPageIdx(pageIdx + 1);
+      }
     }
   };
 
-  const getNewRecords = (newRecordList: Post[]) => {
+  const getNewRecords = (newRecordList: Post[], pid: number) => {
     setPostList([...postList, ...newRecordList]);
+    setLoadedPageIdx(pid);
   };
 
   useEffect(() => {
@@ -35,7 +39,7 @@ const Records: React.FC = () => {
     return () => {
       window.removeEventListener("scroll", scrollHandler);
     };
-  }, [pageIdx, isDone]);
+  }, [pageIdx, isDone, loadedPageIdx]);
 
   return (
     <>
@@ -50,7 +54,7 @@ const Records: React.FC = () => {
 };
 
 interface NewRecordsProps {
-  getNewRecords: (newRecordList: Post[]) => void;
+  getNewRecords: (newRecordList: Post[], pid: number) => void;
   setIsDone: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -58,15 +62,15 @@ const NewRecords: React.FC<NewRecordsProps> = ({
   getNewRecords,
   setIsDone,
 }) => {
-  const newPostList = useRecoilValue(currentPostList);
+  const { list: newPostList, pid } = useRecoilValue(currentPostList);
 
   useEffect(() => {
     if (newPostList.length === 0) {
       setIsDone(true);
       return;
     }
-    getNewRecords(newPostList);
-  }, [newPostList]);
+    getNewRecords(newPostList, pid);
+  }, [newPostList, pid]);
 
   return <></>;
 };
