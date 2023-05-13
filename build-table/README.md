@@ -42,6 +42,6 @@ og : SNS에 도움되는 메타 정보 (사진, 설명)
 
 json+ld는 제대로 하려면 시간 좀 들여야겠는데?
 
----
+helmet에서 link 안되는 이슈 있었는데
 
-왜 헬멧 이미지는 안되냐
+href를 %public% 말고 process.env.PUBLIC_URL 처리로 완료
