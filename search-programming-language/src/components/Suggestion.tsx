@@ -30,7 +30,10 @@ const Suggestion: React.FC<SuggestionProps> = ({
   };
 
   useEffect(() => {
-    if (debouncedValue === "") return;
+    if (debouncedValue === "") {
+      setLanguageList([]);
+      return;
+    }
     getLanguageList(debouncedValue);
   }, [debouncedValue]);
 
