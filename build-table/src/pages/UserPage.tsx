@@ -18,7 +18,8 @@ const UserPage: React.FC = () => {
       setUserInfo(state);
     } else {
       const id = pathname.split("/").pop();
-      setUserInfo(employeeDataList.find((data) => data.id === Number(id)));
+      const user = employeeDataList.find((data) => data.id === Number(id));
+      if (user) setUserInfo(user);
     }
   }, [state, pathname]);
 

@@ -11,17 +11,7 @@ interface CustomHelmetProps {
 }
 
 const CustomHelmet: React.FC<CustomHelmetProps> = ({ page, data }) => {
-  if (page === "main")
-    return (
-      <Helmet>
-        <title>Main</title>
-        <meta name="description" content="This is main page." />
-        <meta name="keywords" content="javascript, react, main page" />
-        <link rel="shortcut icon" href={`${process.env.PUBLIC_URL}/1.ico`} />
-      </Helmet>
-    );
-
-  if (page === "user") {
+  if (page === "user" && data) {
     const { name, title, role } = data;
     return (
       <Helmet>
@@ -32,6 +22,15 @@ const CustomHelmet: React.FC<CustomHelmetProps> = ({ page, data }) => {
       </Helmet>
     );
   }
+
+  return (
+    <Helmet>
+      <title>Main</title>
+      <meta name="description" content="This is main page." />
+      <meta name="keywords" content="javascript, react, main page" />
+      <link rel="shortcut icon" href={`${process.env.PUBLIC_URL}/1.ico`} />
+    </Helmet>
+  );
 };
 
 export default CustomHelmet;
