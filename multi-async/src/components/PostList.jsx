@@ -6,10 +6,10 @@ const PostList = () => {
       const startTime = performance.now();
       for (let i = 1; i <= 10; i++) {
         const data = await fetch(
-          "https://jsonplaceholder.typicode.com/posts?_page=1"
+          `https://jsonplaceholder.typicode.com/posts?_page=${i}`
         );
         const res = await data.json();
-        console.log(res);
+        console.log("A", res);
       }
       const endTime = performance.now();
       console.log(endTime - startTime);
@@ -19,14 +19,15 @@ const PostList = () => {
       const startTime = performance.now();
       for (let i = 1; i <= 10; i++) {
         const data = await fetch(
-          "https://jsonplaceholder.typicode.com/posts?_page=1"
+          `https://jsonplaceholder.typicode.com/posts?_page=${i}`
         );
         const res = await data.json();
-        console.log(res);
+        console.log("B", res);
       }
       const endTime = performance.now();
       console.log(endTime - startTime);
     };
+
     getPostList1();
     getPostList2();
   }, []);
