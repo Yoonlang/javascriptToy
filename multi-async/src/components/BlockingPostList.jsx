@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const PostList = () => {
+const BlockingPostList = () => {
   useEffect(() => {
     const getPostList1 = async () => {
       const startTime = performance.now();
@@ -9,10 +9,10 @@ const PostList = () => {
           `https://jsonplaceholder.typicode.com/posts?_page=${i}`
         );
         const res = await data.json();
-        console.log("A", res);
+        // console.log("A", res);
       }
       const endTime = performance.now();
-      console.log(endTime - startTime);
+      console.log("블로킹", endTime - startTime);
     };
 
     const getPostList2 = async () => {
@@ -22,10 +22,10 @@ const PostList = () => {
           `https://jsonplaceholder.typicode.com/posts?_page=${i}`
         );
         const res = await data.json();
-        console.log("B", res);
+        // console.log("B", res);
       }
       const endTime = performance.now();
-      console.log(endTime - startTime);
+      console.log("블로킹", endTime - startTime);
     };
 
     getPostList1();
@@ -35,4 +35,4 @@ const PostList = () => {
   return <></>;
 };
 
-export default PostList;
+export default BlockingPostList;

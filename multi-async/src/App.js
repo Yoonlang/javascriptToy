@@ -1,10 +1,12 @@
 import "./App.css";
-import PostList from "./components/PostList";
+import BlockingPostList from "./components/BlockingPostList";
+import NonBlockingPostList from "./components/NonBlockingPostList";
 
 function App() {
   return (
     <div className="App">
-      <PostList />
+      <BlockingPostList />
+      <NonBlockingPostList />
     </div>
   );
 }
