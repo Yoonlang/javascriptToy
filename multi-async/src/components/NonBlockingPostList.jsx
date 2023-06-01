@@ -20,26 +20,24 @@ const NonBlockingPostList = () => {
       }, 30);
     };
 
-    const getPostList2 = () => {
+    const getPostListWithPromiseAll = async () => {
       const startTime = performance.now();
-      let count = 0;
+      const promiseAllArray = [];
       for (let i = 1; i <= 10; i++) {
-        fetch(`https://jsonplaceholder.typicode.com/posts?_page=${i}`).then(
-          (data) => data.json().then((res) => count++)
+        promiseAllArray.push(
+          fetch(`https://jsonplaceholder.typicode.com/posts?_page=${i}`)
         );
       }
-
-      const counter = setInterval(() => {
-        if (count === 10) {
-          clearInterval(counter);
-          const endTime = performance.now();
-          console.log("논블로킹", endTime - startTime);
-        }
-      }, 30);
+      const responses = await Promise.all(promiseAllArray);
+      responses.forEach((data) => {
+        data.json();
+      });
+      const endTime = performance.now();
+      console.log("논블로킹 PromiseAll", endTime - startTime);
     };
 
     getPostList1();
-    getPostList2();
+    getPostListWithPromiseAll();
   }, []);
 
   return <></>;
