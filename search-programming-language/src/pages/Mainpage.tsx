@@ -3,7 +3,7 @@ import SelectedLanguage from "components/SelectedLanguage";
 import Suggestion from "components/Suggestion";
 import { useEffect, useState } from "react";
 
-const delay = 300;
+const delay = 100;
 
 const MainPage: React.FC = () => {
   const [selectedLanguage, setSelectedLanguage] = useState<string[]>([]);

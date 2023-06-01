@@ -14,14 +14,16 @@ const Suggestion: React.FC<SuggestionProps> = ({
 }) => {
   const [languageList, setLanguageList] = useState<string[]>([]);
 
-  const getLanguageList = async (keyword: string) => {
+  const getLanguageList = async (keyword: string, signal: AbortSignal) => {
     try {
-      const res = await fetch(`${fetchURL}/languages?keyword=${keyword}`);
+      const res = await fetch(`${fetchURL}/languages?keyword=${keyword}`, {
+        signal,
+      });
       const data = await res.json();
       if (data.error) setLanguageList([]);
       else setLanguageList(data);
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
     }
   };
 
@@ -34,7 +36,12 @@ const Suggestion: React.FC<SuggestionProps> = ({
       setLanguageList([]);
       return;
     }
-    getLanguageList(debouncedValue);
+    const controller = new AbortController();
+    getLanguageList(debouncedValue, controller.signal);
+
+    return () => {
+      controller.abort();
+    };
   }, [debouncedValue]);
 
   if (languageList.length === 0) return <></>;
@@ -42,13 +49,7 @@ const Suggestion: React.FC<SuggestionProps> = ({
   return (
     <div className="Suggestion">
       <ul>
-        {/* <li className="Suggestion__item--selected">
-          Action<span className="Suggestion__item--matched">Script</span>
-        </li> */}
         {languageList.map((lang, idx) => {
-          //   const a = lang.split(debouncedValue);
-          //   console.log(a);
-          // debouncedValue랑 매칭해서 <span className="Suggestion__item--matched">Script</span>
           return (
             <li key={idx} onClick={() => handleLanguageList(lang)}>
               {lang}

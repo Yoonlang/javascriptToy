@@ -7,17 +7,12 @@ const SearchInput: React.FC<SearchInputProps> = ({
   inputValue,
   setInputValue,
 }) => {
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log("hi");
-  };
-
   const onChange = (e) => {
     setInputValue(e.target.value);
   };
 
   return (
-    <form className="SearchInput" onSubmit={onSubmit}>
+    <form className="SearchInput">
       <input
         className="SearchInput__input"
         type="text"
