@@ -7,13 +7,22 @@ const AbortControlledInput = () => {
   const [result, setResult] = useState("");
   const count = useRef(0);
 
-  const getDelayedData = async (count) => {
-    const res = await delayFetch();
-    setResult(`${res}, ${count}`);
+  const getDelayedData = async (count, signal) => {
+    try {
+      const res = await delayFetch(1000, signal);
+      setResult(`${res}, ${count}`);
+    } catch (e) {
+      console.log(e.message);
+    }
   };
 
   useEffect(() => {
-    getDelayedData(count.current++);
+    const controller = new AbortController();
+    getDelayedData(count.current++, controller.signal);
+
+    return () => {
+      controller.abort();
+    };
   }, [value]);
 
   return (
