@@ -1,9 +1,18 @@
+class NamedError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = this.constructor.name;
+  }
+}
+
+class AbortError extends NamedError {}
+
 export const delayFetch = (baseTime = 1000, signal) => {
   const timer = Math.ceil(Math.random() * 2 * baseTime);
   return new Promise((resolve, reject) => {
     const abortHandler = () => {
       clearTimeout(success);
-      reject(new Error("aborted"));
+      reject(new AbortError("this fetch is aborted"));
     };
 
     const success = setTimeout(() => {

@@ -12,7 +12,7 @@ const AbortControlledInput = () => {
       const res = await delayFetch(1000, signal);
       setResult(`${res}, ${count}`);
     } catch (e) {
-      console.log(e.message);
+      console.log(e);
     }
   };
 
